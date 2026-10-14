@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -51,6 +57,7 @@ export class SolicitudNueva {
   private readonly pdf = inject(PdfService);
   private readonly messages = inject(MessageService);
   private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   protected texto = '';
   protected origen: OrigenSolicitud = 'Correo';
@@ -97,30 +104,26 @@ export class SolicitudNueva {
       return;
     }
 
-    if (!esPdfArchivo) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.texto = String(reader.result ?? '');
-      };
-      reader.readAsText(file);
-      return;
-    }
-
     this.extrayendo.set(true);
     try {
-      const extraido = await this.pdf.extraerTexto(file);
+      const extraido = esPdfArchivo ? await this.pdf.extraerTexto(file) : await file.text();
       this.texto = extraido;
+      this.cdr.markForCheck();
       if (!extraido) {
         this.messages.add(
           toastAviso(
-            'PDF sin texto',
-            'No se pudo extraer texto del PDF (¿es un documento escaneado?). Pegue el contenido manualmente.',
+            'Archivo sin texto',
+            'No se pudo extraer texto del archivo (¿es un documento escaneado?). Pegue el contenido manualmente.',
           ),
         );
       }
     } catch {
       this.messages.add(
-        toastError(null, 'Error al leer PDF', 'No se pudo procesar el archivo PDF. Intente nuevamente o pegue el texto.'),
+        toastError(
+          null,
+          'Error al leer archivo',
+          'No se pudo procesar el archivo. Intente nuevamente o pegue el texto.',
+        ),
       );
     } finally {
       this.extrayendo.set(false);

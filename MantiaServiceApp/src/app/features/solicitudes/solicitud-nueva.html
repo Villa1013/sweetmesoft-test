@@ -15,7 +15,7 @@
           <p-select
             [options]="origenes"
             [(ngModel)]="origen"
-            [disabled]="analizando()"
+            [disabled]="extrayendo() || analizando()"
             styleClass="w-full sm:w-44"
           />
         </div>
@@ -25,7 +25,7 @@
           [class.opacity-60]="extrayendo() || analizando()"
         >
           @if (extrayendo()) {
-            <i class="pi pi-spin pi-spinner"></i> Leyendo PDF…
+            <i class="pi pi-spin pi-spinner"></i> Leyendo {{ canalEsPdf ? 'PDF' : '.txt' }}…
           } @else {
             <i class="pi pi-upload"></i> {{ etiquetaArchivo }}
           }
@@ -38,22 +38,19 @@
         [(ngModel)]="texto"
         rows="16"
         class="w-full font-mono text-sm"
-        [disabled]="analizando()"
+        [disabled]="extrayendo() || analizando()"
         placeholder="Pegue aquí el correo, mensaje o documento del cliente, o cargue un PDF o archivo .txt…"
       ></textarea>
 
       <button
         pButton
         class="mt-4 w-full"
+        [label]="analizando() ? 'Analizando…' : 'Analizar con IA'"
+        icon="pi pi-sparkles"
         [loading]="analizando()"
         [disabled]="extrayendo() || analizando()"
         (click)="analizar()"
-      >
-        @if (!analizando()) {
-          <i class="pi pi-sparkles"></i>
-        }
-        <span class="ml-2">{{ analizando() ? 'Analizando…' : 'Analizar con IA' }}</span>
-      </button>
+      ></button>
     </app-card>
 
     <app-card class="fade-in-up block">

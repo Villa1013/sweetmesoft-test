@@ -18,22 +18,12 @@ export class PdfService {
     const data = new Uint8Array(await file.arrayBuffer());
     const tarea = pdfjsLib.getDocument({ data });
     const documento = await tarea.promise;
-    const paginas: string[] = [];
 
-    for (let numero = 1; numero <= documento.numPages; numero++) {
-      const pagina = await documento.getPage(numero);
-      const contenido = await pagina.getTextContent();
-      let textoPagina = '';
-      for (const item of contenido.items as Array<{ str?: string; hasEOL?: boolean }>) {
-        if (typeof item.str === 'string') {
-          textoPagina += item.str;
-        }
-        if (item.hasEOL) {
-          textoPagina += '\n';
-        }
-      }
-      paginas.push(textoPagina);
-    }
+    const paginas = await Promise.all(
+      Array.from({ length: documento.numPages }, (_, indice) =>
+        this.textoDePagina(documento, indice + 1),
+      ),
+    );
 
     await tarea.destroy();
     return paginas
@@ -41,5 +31,23 @@ export class PdfService {
       .replace(/[ \t]+/g, ' ')
       .replace(/\n{3,}/g, '\n\n')
       .trim();
+  }
+
+  private async textoDePagina(
+    documento: pdfjsLib.PDFDocumentProxy,
+    numero: number,
+  ): Promise<string> {
+    const pagina = await documento.getPage(numero);
+    const contenido = await pagina.getTextContent();
+    let textoPagina = '';
+    for (const item of contenido.items as Array<{ str?: string; hasEOL?: boolean }>) {
+      if (typeof item.str === 'string') {
+        textoPagina += item.str;
+      }
+      if (item.hasEOL) {
+        textoPagina += '\n';
+      }
+    }
+    return textoPagina;
   }
 }
