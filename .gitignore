@@ -10,9 +10,12 @@ MantiaServiceApi/mantia.db-shm
 MantiaServiceApi/mantia.db-wal
 MantiaServiceApi/bin/
 MantiaServiceApi/obj/
+MantiaServiceApi/.agents/
 
 # --- Frontend (Angular) ---
 MantiaServiceApp/.env
 MantiaServiceApp/node_modules/
 MantiaServiceApp/dist/
 MantiaServiceApp/.angular/
+MantiaServiceApp/.agents/
+MantiaServiceApp/.claude/

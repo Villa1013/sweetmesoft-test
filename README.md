@@ -1,5 +1,5 @@
 <div align="center">
-![SweetMeSoft Test](https://sweetmesoft.com/logo.png)
+![SweetMeSoft](MantiaServiceApp/public/logo.png)
 </div>
 
 # Mantia Servicios — Prototipo de cotización asistida
