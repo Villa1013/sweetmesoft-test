@@ -1,8 +1,8 @@
 <div align="center">
   <img src="./docs/logo.png" alt="SweetMeSoft" width="200">
-</div>
 
-# Mantia Servicios — Prototipo de cotización asistida
+# Prototipo de cotización asistida
+</div>
 
 Prototipo funcional para la **prueba técnica de SweetMeSoft**. Automatiza la lectura de
 solicitudes de mantenimiento (correos, mensajería y documentos), su interpretación, el
