@@ -66,7 +66,7 @@
         [pTooltip]="mostrarTexto() ? '' : (temas.oscuro() ? 'Modo claro' : 'Modo oscuro')"
         tooltipPosition="right"
         [attr.aria-label]="temas.oscuro() ? 'Activar tema claro' : 'Activar tema oscuro'"
-        class="flex items-center justify-center gap-2 rounded-xl bg-surface-800 py-2.5 text-surface-300 transition-colors hover:bg-surface-700 hover:text-surface-0"
+        class="cursor-pointer flex items-center justify-center gap-2 rounded-xl bg-surface-800 py-2.5 text-surface-300 transition-colors hover:bg-surface-700 hover:text-surface-0"
       >
         <i class="pi theme-icon" [ngClass]="temas.oscuro() ? 'pi-sun' : 'pi-moon'"></i>
         @if (mostrarTexto()) {
@@ -78,7 +78,7 @@
         type="button"
         (click)="toggle()"
         aria-label="Colapsar menú"
-        class="hidden items-center justify-center gap-2 rounded-xl bg-surface-800 py-2.5 text-surface-300 transition-colors hover:bg-surface-700 hover:text-surface-0 lg:flex"
+        class="cursor-pointer hidden items-center justify-center gap-2 rounded-xl bg-surface-800 py-2.5 text-surface-300 transition-colors hover:bg-surface-700 hover:text-surface-0 lg:flex"
       >
         <i class="pi" [ngClass]="collapsed() ? 'pi-angle-double-right' : 'pi-angle-double-left'"></i>
       </button>
@@ -92,7 +92,7 @@
       <button
         type="button"
         (click)="toggleMobile()"
-        class="grid h-10 w-10 place-items-center rounded-xl text-body-soft transition-colors hover:bg-panel-hover"
+        class="cursor-pointer grid h-10 w-10 place-items-center rounded-xl text-body-soft transition-colors hover:bg-panel-hover"
         aria-label="Abrir menú"
       >
         <i class="pi pi-bars text-lg"></i>
@@ -108,7 +108,7 @@
         type="button"
         (click)="temas.alternar()"
         [attr.aria-label]="temas.oscuro() ? 'Activar tema claro' : 'Activar tema oscuro'"
-        class="ml-auto grid h-10 w-10 place-items-center rounded-xl text-body-soft transition-colors hover:bg-panel-hover"
+        class="cursor-pointer ml-auto grid h-10 w-10 place-items-center rounded-xl text-body-soft transition-colors hover:bg-panel-hover"
       >
         <i class="pi theme-icon" [ngClass]="temas.oscuro() ? 'pi-sun' : 'pi-moon'"></i>
       </button>

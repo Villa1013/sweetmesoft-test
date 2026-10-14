@@ -8,7 +8,7 @@
     <button
       type="button"
       (click)="seleccionarVersion(null)"
-      class="rounded-xl border px-4 py-2 text-sm font-semibold transition-colors"
+      class="cursor-pointer rounded-xl border px-4 py-2 text-sm font-semibold transition-colors"
       [class]="
         versionActiva() === null
           ? 'border-primary bg-primary text-primary-contrast'
@@ -21,7 +21,7 @@
       <button
         type="button"
         (click)="seleccionarVersion(v)"
-        class="rounded-xl border px-4 py-2 text-sm font-semibold transition-colors"
+        class="cursor-pointer rounded-xl border px-4 py-2 text-sm font-semibold transition-colors"
         [class]="
           versionActiva() === v
             ? 'border-primary bg-primary text-primary-contrast'

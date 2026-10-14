@@ -25,7 +25,13 @@ public class GeminiExtraccionService : IExtraccionTexto
     public bool TieneApiKey => !string.IsNullOrWhiteSpace(ApiKey);
 
     private string? ApiKey => _configuration["Gemini:ApiKey"];
-    private string Modelo => _configuration["Gemini:Model"] ?? "gemini-2.0-flash";
+    private string Modelo => _configuration["Gemini:Model"] ?? "gemini-flash-lite-latest";
+
+    private static readonly string[] ModelosRespaldo =
+    {
+        "gemini-flash-lite-latest",
+        "gemini-3-flash-preview",
+    };
 
     public async Task<ResultadoExtraccion> ExtraerAsync(string texto, CancellationToken cancellationToken = default)
     {
@@ -60,7 +66,51 @@ public class GeminiExtraccionService : IExtraccionTexto
             {{texto}}
             """;
 
-        var url = $"https://generativelanguage.googleapis.com/v1beta/models/{Modelo}:generateContent?key={ApiKey}";
+        Exception? ultimoError = null;
+        foreach (var modelo in ModelosDisponibles())
+        {
+            try
+            {
+                var resultado = await ExtraerConModeloAsync(modelo, prompt, cancellationToken);
+                if (ultimoError is not null)
+                {
+                    _logger.LogInformation("Gemini respondió con el modelo de respaldo {Modelo}.", modelo);
+                }
+                return resultado;
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ultimoError = ex;
+                _logger.LogWarning(
+                    "Gemini con el modelo {Modelo} falló: {Mensaje}. Se intentará el siguiente modelo.",
+                    modelo,
+                    ex.Message);
+            }
+        }
+
+        throw ultimoError ?? new InvalidOperationException("Ningún modelo de Gemini respondió.");
+    }
+
+    private IEnumerable<string> ModelosDisponibles()
+    {
+        yield return Modelo;
+        foreach (var respaldo in ModelosRespaldo)
+        {
+            if (!string.Equals(respaldo, Modelo, StringComparison.OrdinalIgnoreCase))
+                yield return respaldo;
+        }
+    }
+
+    private async Task<ResultadoExtraccion> ExtraerConModeloAsync(
+        string modelo,
+        string prompt,
+        CancellationToken cancellationToken)
+    {
+        var url = $"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent?key={ApiKey}";
         var body = new
         {
             contents = new[]
