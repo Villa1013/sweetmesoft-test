@@ -7,10 +7,16 @@ Fecha de referencia del caso: **13 de octubre de 2026**.
 > Este documento acompaña al repositorio. También existe una versión PDF en
 > `docs/Solucion_Mantia.pdf`. El historial de interacción con la IA está en
 > `docs/Historial_IA.md`.
+>
+> **Demo en vivo:** <https://sweetmesoft-test.vercel.app/> (backend en tier gratuito;
+> la primera petición puede tardar ~30–50 s).
 
 ---
 
 ## 1. Resumen ejecutivo
+
+> **Demo en vivo:** <https://sweetmesoft-test.vercel.app/> — prototipo desplegado
+> (frontend en Vercel, API .NET en Render).
 
 Mantia recibe solicitudes por correo, mensajería y documentos. Laura, la coordinadora
 comercial, invierte mucho tiempo en entender cada solicitud, consultar tarifas y preparar
@@ -125,7 +131,7 @@ comprensible**. Por eso el motor de extracción se diseñó como una interfaz
 
 - **`GeminiExtraccionService`**: llama a la API de Google Gemini con un prompt que fuerza
   una respuesta JSON estructurada.
-- **`ReglasExtraccionService`**: heurísticas locales con expresiones regulares y
+- **`ReglasExtraccionService`**: reglas locales por patrones con expresiones regulares y
   normalización de texto (sin tildes, minúsculas).
 
 `ExtraccionService` decide en caliente: si hay API key intenta Gemini; si falla (timeout,
@@ -278,7 +284,7 @@ emisión 13/10/2026, tarifa `2026-10`).
 | Persistencia | **SQLite** | Cero configuración; el prototipo arranca sin instalar motores |
 | Frontend | **Angular 20** | Componentes, ruteo, DI y HttpClient; PrimeNG acelera una UI clara |
 | PDF | **pdfjs-dist** | Extrae texto en el cliente, sin costo ni backend extra |
-| IA | **Google Gemini** (`gemini-2.0-flash`) | JSON estructurado, tier gratuito, integración HTTP directa |
+| IA | **Google Gemini** (`gemini-flash-lite-latest`) | JSON estructurado, tier gratuito, integración HTTP directa |
 | Respaldo | **Reglas locales** | Garantiza funcionamiento sin API key / sin internet |
 
 ## 10. Alternativas consideradas y descartadas
@@ -299,10 +305,10 @@ emisión 13/10/2026, tarifa `2026-10`).
 - **Integraciones reales ausentes**: no se conectan cuentas de correo/mensajería ni se envían
   cotizaciones. La ingesta es manual (pegar/cargar).
 - **Fecha de visita en el motor de reglas**: si el texto contiene varias fechas (encabezado
-  del correo + fecha solicitada), la heurística puede tomar la primera. Gemini mitiga esto;
+  del correo + fecha solicitada), la regla puede tomar la primera. Gemini mitiga esto;
   aun así, Laura edita el campo. *Mejora pendiente: priorizar fechas junto a "visita",
   "solicitada" o días de la semana.*
-- **Nombres de contacto**: la heurística puede acortar el nombre ("Ana" en vez de
+- **Nombres de contacto**: la regla puede acortar el nombre ("Ana" en vez de
   "Ana Beltrán"). El campo es editable.
 - **PDF escaneados**: sin texto embebido, no se extraen (se avisa y se puede pegar el texto).
 - **Duplicados**: se detecta la referencia repetida, pero la decisión de fusionar es manual.
@@ -313,15 +319,17 @@ emisión 13/10/2026, tarifa `2026-10`).
 
 ## 12. Aportes de la IA: qué acepté, modifiqué o descarté
 
-El detalle cronológico está en `docs/Historial_IA.md`. Resumen de criterio:
+El detalle cronológico y la tabla **"Resumen de aportes de la IA"** están en
+`docs/Historial_IA.md`. Resumen de criterio:
 
 - **Acepté**: propuesta de arquitectura en dos capas con motor de extracción intercambiable
-  (Gemini + reglas); estructura de entidades y DTOs; borradores de las `ReglasComerciales`.
+  (Gemini + reglas) y el respaldo determinista por reglas.
 - **Modifiqué**: los *prompts* (los forcé a JSON estricto con `temperature: 0` y reglas de
-  negocio explícitas); las heurísticas de extracción (las alineé a los casos reales);
-  la interpretación de fechas y del recargo (verificado contra el XLSX).
+  negocio explícitas); las reglas de extracción (las alineé a los casos reales); la estructura
+  de entidades/DTOs y los borradores de `ReglasComerciales` (los ajusté a los datos reales y
+  recalculé contra el XLSX); la interpretación de fechas y del recargo (verificado contra el XLSX).
 - **Descarté**: sugerencias de llamar a la IA para calcular precios; propuestas de
-  microservicios/colas; extracción de PDF en servidor.
+  microservicios/colas; extracción de PDF en servidor; autenticación/roles.
 - **Cómo verifiqué**: calculé a mano los importes esperados de cada solicitud y de los casos
   de borde, y los comparé contra las respuestas reales de la API (sección 8). El historial
   de 6 cotizaciones funcionó como *conjunto de validación* del motor de cálculo.

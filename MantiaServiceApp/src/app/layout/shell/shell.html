@@ -34,7 +34,7 @@
       @for (item of nav; track item.route) {
         <a
           [routerLink]="item.route"
-          routerLinkActive="bg-primary text-primary-contrast shadow-md"
+          routerLinkActive="bg-primary text-white text-primary-contrast shadow-md"
           [routerLinkActiveOptions]="{ exact: item.route === '/panel' }"
           [pTooltip]="!mostrarTexto() ? item.label : ''"
           tooltipPosition="right"

@@ -1,7 +1,19 @@
 <div align="center">
   <img src="./docs/logo.png" alt="SweetMeSoft" width="200">
 
-# Prototipo de cotización asistida
+  # Prototipo de cotización asistida
+
+  **[▶ Probar el prototipo en vivo](https://sweetmesoft-test.vercel.app/)**
+
+  [![Demo en vivo](https://img.shields.io/badge/Demo-En_vivo-6E56CF?style=for-the-badge&logo=vercel&logoColor=white)](https://sweetmesoft-test.vercel.app/)
+  ![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+  ![Angular 20](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+
+  <a href="https://sweetmesoft-test.vercel.app/">
+    <img src="./docs/demo.gif" alt="Recorrido del prototipo" width="820">
+  </a>
+  <br>
+  <sub>Panel → Nueva solicitud (pegar correo) → Analizar → Registrar → Generar cotización → Cotización con total</sub>
 </div>
 
 Prototipo funcional para la **prueba técnica de SweetMeSoft**. Automatiza la lectura de
@@ -18,23 +30,46 @@ tiempo de Laura (coordinadora comercial) y los errores de alcance y valores.
 > (y su versión PDF [`docs/Solucion_Mantia.pdf`](docs/Solucion_Mantia.pdf)).
 > Historial de interacción con la IA: [`docs/Historial_IA.md`](docs/Historial_IA.md).
 
+> ⏳ **Demo en vivo:** <https://sweetmesoft-test.vercel.app/> — el backend gratuito (Render)
+> puede tardar ~30–50 s en la primera petición mientras "despierta".
+
 ---
 
 ## Índice
 
-1. [Arquitectura](#arquitectura)
-2. [Requisitos](#requisitos)
-3. [Instalación y ejecución](#instalación-y-ejecución)
-4. [Variables de entorno](#variables-de-entorno)
-5. [Uso del prototipo](#uso-del-prototipo)
-6. [API (endpoints)](#api-endpoints)
-7. [Reglas de negocio implementadas](#reglas-de-negocio-implementadas)
-8. [Datos de ejemplo (seed)](#datos-de-ejemplo-seed)
-9. [Verificación](#verificación)
-10. [Alcance funcional](#alcance-funcional)
-11. [Pendientes y fuera de alcance](#pendientes-y-fuera-de-alcance)
-12. [Estructura del repositorio](#estructura-del-repositorio)
-13. [Herramientas usadas](#herramientas-usadas)
+1. [Demo en vivo](#demo-en-vivo)
+2. [Arquitectura](#arquitectura)
+3. [Requisitos](#requisitos)
+4. [Instalación y ejecución](#instalación-y-ejecución)
+5. [Variables de entorno](#variables-de-entorno)
+6. [Uso del prototipo](#uso-del-prototipo)
+7. [API (endpoints)](#api-endpoints)
+8. [Reglas de negocio implementadas](#reglas-de-negocio-implementadas)
+9. [Datos de ejemplo (seed)](#datos-de-ejemplo-seed)
+10. [Verificación](#verificación)
+11. [Alcance funcional](#alcance-funcional)
+12. [Pendientes y fuera de alcance](#pendientes-y-fuera-de-alcance)
+13. [Estructura del repositorio](#estructura-del-repositorio)
+14. [Herramientas usadas](#herramientas-usadas)
+
+---
+
+## Demo en vivo
+
+🔗 **<https://sweetmesoft-test.vercel.app/>**
+
+Recorrido sugerido:
+
+1. **Panel** con indicadores (listas para cotizar, requieren acción, valor cotizado, recientes).
+2. **Nueva solicitud** → pega el texto de un correo (o carga un `.txt`/`.pdf`) y pulsa **Analizar**.
+3. Revisa los datos extraídos y **Registrar** la solicitud.
+4. En el detalle, **Generar cotización** (líneas, subtotal, IVA 19% y total).
+5. En **Cotizaciones**, revisa el detalle, **imprime** o marca como **Enviada**.
+
+[![Recorrido del prototipo](./docs/demo.gif)](https://sweetmesoft-test.vercel.app/)
+
+> Es un entorno de prueba con datos de ejemplo; puedes crear y editar solicitudes libremente.
+> El backend corre en un tier gratuito y puede tardar en la primera petición (ver aviso arriba).
 
 ---
 
@@ -139,7 +174,7 @@ cp .env.example .env
 | Variable | Descripción | Obligatoria |
 |----------|-------------|-------------|
 | `GEMINI__APIKEY` | API key de Google AI Studio. Si está vacía, se usa el motor de reglas local. | No |
-| `GEMINI__MODEL` | Modelo de Gemini (por defecto `gemini-2.0-flash`). | No |
+| `GEMINI__MODEL` | Modelo de Gemini (por defecto `gemini-flash-lite-latest`, con respaldo `gemini-3-flash-preview`). | No |
 | `GEMINI__TIMEOUTSECONDS` | Segundos antes de caer al motor de reglas (por defecto 8). | No |
 
 - **No se sube `.env` al repositorio** (está ignorado). No incluyas claves reales en el repo.
@@ -273,7 +308,7 @@ cd MantiaServiceApp && npx ng build
 - **Envío real de cotizaciones** al cliente: solo se marca como *Enviada*. "Mantia no
   realiza envíos automáticos sin revisión de Laura".
 - **Agenda de técnicos** y **facturación/cobro**: fuera del alcance de la prueba.
-- **Motor de reglas:** algunos campos dependen de heurísticas simples. Por ejemplo, la
+- **Motor de reglas:** algunos campos dependen de reglas simples por patrones. Por ejemplo, la
   **fecha de visita** puede confundirse con la fecha del encabezado del correo cuando
   ambas aparecen (limitación identificada y documentada; el motor Gemini mitiga esto).
 - **Autenticación/roles:** el prototipo es de uso local por Laura, sin login.

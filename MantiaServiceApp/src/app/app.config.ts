@@ -5,11 +5,25 @@ import { LOCALE_ID, ApplicationConfig, provideBrowserGlobalErrorListeners, provi
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import Aura from '@primeng/themes/aura';
+import { definePreset } from '@primeng/themes';
 import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
 
 registerLocaleData(localeEsCo, 'es-CO');
+
+const AppPreset = definePreset(Aura, {
+  components: {
+    tag: {
+      root: {
+        fontSize: '0.75rem',
+        padding: '0.125rem 0.5rem',
+        gap: '0.25rem',
+      },
+      icon: { size: '0.625rem' },
+    },
+  },
+});
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,9 +36,19 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       ripple: true,
       theme: {
-        preset: Aura,
+        preset: AppPreset,
         options: {
           darkModeSelector: '.p-dark',
+          components: { 
+            tag: { 
+              root: { 
+                fontSize: '0.75rem', padding: '0.125rem 0.5rem', gap: '0.25rem' 
+              }, 
+              icon: { 
+                size: '0.625rem' 
+              } 
+            } 
+          },
         },
       },
       translation: {
