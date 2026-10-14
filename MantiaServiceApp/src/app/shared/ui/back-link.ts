@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <a
       [routerLink]="link()"
-      class="fade-in-up mb-4 inline-flex items-center gap-2 text-sm font-medium text-surface-500 hover:text-primary"
+      class="fade-in-up mb-4 inline-flex items-center gap-2 text-sm font-medium text-body-muted hover:text-primary"
     >
       <i class="pi pi-arrow-left"></i> {{ label() }}
     </a>

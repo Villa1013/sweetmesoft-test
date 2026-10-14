@@ -6,9 +6,9 @@ import { CountUpDirective } from '../directives/count-up.directive';
 export type TemaIcono = 'primary' | 'verde' | 'ambar' | 'claro';
 
 const TEMAS: Record<TemaIcono, string> = {
-  primary: 'bg-primary-50 text-primary',
-  verde: 'bg-green-50 text-green-600',
-  ambar: 'bg-amber-50 text-amber-600',
+  primary: 'bg-primary-50 text-primary dark:bg-primary-950/40 dark:text-primary-300',
+  verde: 'bg-green-50 text-green-600 dark:bg-green-950/40 dark:text-green-400',
+  ambar: 'bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400',
   claro: 'bg-white/20',
 };
 
@@ -23,7 +23,7 @@ const TEMAS: Record<TemaIcono, string> = {
           <i class="pi" [ngClass]="icono()"></i>
         </span>
         @if (destacada()) {
-          <i class="pi pi-arrow-up-right text-surface-300"></i>
+          <i class="pi pi-arrow-up-right text-body-muted"></i>
         }
       </div>
 
@@ -60,10 +60,10 @@ export class StatCard {
   protected readonly claseTarjeta = computed(() =>
     this.invertida()
       ? 'border-primary bg-primary text-primary-contrast shadow-md'
-      : 'border-surface-200 bg-white',
+      : 'border-line bg-panel',
   );
   protected readonly claseValor = computed(() => (this.invertida() ? 'text-2xl' : 'text-3xl'));
   protected readonly claseEtiqueta = computed(() =>
-    this.invertida() ? 'opacity-80' : 'text-surface-500',
+    this.invertida() ? 'opacity-80' : 'text-body-muted',
   );
 }

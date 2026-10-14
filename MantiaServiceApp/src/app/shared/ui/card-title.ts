@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2
-      class="text-sm font-semibold uppercase tracking-wide text-surface-500"
+      class="text-sm font-semibold uppercase tracking-wide text-body-muted"
       [class.mb-4]="espaciado()"
     >
       {{ title() }}

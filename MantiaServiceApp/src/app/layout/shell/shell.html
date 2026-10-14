@@ -1,4 +1,4 @@
-<div class="flex h-screen w-full overflow-hidden bg-surface-50">
+<div class="flex h-screen w-full overflow-hidden bg-ground">
   @if (mobileOpen()) {
     <div
       class="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm lg:hidden"
@@ -12,11 +12,15 @@
     [class.-translate-x-full]="!mobileOpen()"
     [class.lg:w-20]="collapsed()"
   >
-    <div class="flex h-16 items-center gap-3 px-5">
+    <div
+      class="flex h-16 items-center gap-3 px-5"
+      [class.justify-center]="!mostrarTexto()"
+      [class.px-0]="!mostrarTexto()"
+    >
       <div
-        class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-contrast shadow-lg"
+        class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary text-primary-contrast shadow-lg"
       >
-        <i class="pi pi-wrench text-lg"></i>
+        <img src="/icon.png" alt="Mantia Servicios" class="w-10/12" />
       </div>
       @if (mostrarTexto()) {
         <div class="fade-in-up overflow-hidden">
@@ -36,6 +40,7 @@
           tooltipPosition="right"
           (click)="cerrarMobile()"
           class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-surface-300 transition-colors hover:bg-surface-800 hover:text-surface-0"
+          [class.justify-center]="!mostrarTexto()"
         >
           <i class="pi" [ngClass]="item.icon" style="font-size: 1rem"></i>
           @if (mostrarTexto()) {
@@ -54,33 +59,59 @@
       </div>
     }
 
-    <button
-      type="button"
-      (click)="toggle()"
-      class="m-3 hidden items-center justify-center gap-2 rounded-xl bg-surface-800 py-2 text-surface-300 transition-colors hover:text-surface-0 lg:flex"
-    >
-      <i class="pi" [ngClass]="collapsed() ? 'pi-angle-double-right' : 'pi-angle-double-left'"></i>
-    </button>
+    <div class="m-3 flex flex-col gap-2">
+      <button
+        type="button"
+        (click)="temas.alternar()"
+        [pTooltip]="mostrarTexto() ? '' : (temas.oscuro() ? 'Modo claro' : 'Modo oscuro')"
+        tooltipPosition="right"
+        [attr.aria-label]="temas.oscuro() ? 'Activar tema claro' : 'Activar tema oscuro'"
+        class="flex items-center justify-center gap-2 rounded-xl bg-surface-800 py-2.5 text-surface-300 transition-colors hover:bg-surface-700 hover:text-surface-0"
+      >
+        <i class="pi theme-icon" [ngClass]="temas.oscuro() ? 'pi-sun' : 'pi-moon'"></i>
+        @if (mostrarTexto()) {
+          <span class="text-sm font-medium">{{ temas.oscuro() ? 'Modo claro' : 'Modo oscuro' }}</span>
+        }
+      </button>
+
+      <button
+        type="button"
+        (click)="toggle()"
+        aria-label="Colapsar menú"
+        class="hidden items-center justify-center gap-2 rounded-xl bg-surface-800 py-2.5 text-surface-300 transition-colors hover:bg-surface-700 hover:text-surface-0 lg:flex"
+      >
+        <i class="pi" [ngClass]="collapsed() ? 'pi-angle-double-right' : 'pi-angle-double-left'"></i>
+      </button>
+    </div>
   </aside>
 
   <div class="flex min-w-0 flex-1 flex-col">
     <header
-      class="sticky top-0 z-20 flex h-16 shrink-0 items-center gap-3 border-b border-surface-200 bg-white/90 px-4 backdrop-blur lg:hidden"
+      class="sticky top-0 z-20 flex h-16 shrink-0 items-center gap-3 border-b border-line bg-panel/90 px-4 backdrop-blur lg:hidden"
     >
       <button
         type="button"
         (click)="toggleMobile()"
-        class="grid h-10 w-10 place-items-center rounded-xl text-surface-700 transition-colors hover:bg-surface-100"
+        class="grid h-10 w-10 place-items-center rounded-xl text-body-soft transition-colors hover:bg-panel-hover"
         aria-label="Abrir menú"
       >
         <i class="pi pi-bars text-lg"></i>
       </button>
       <div class="flex items-center gap-2">
         <div class="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-contrast">
-          <i class="pi pi-wrench text-sm"></i>
+          <!-- <i class="pi pi-wrench text-sm"></i> -->
+          <img src="/icon.png" alt="Mantia Servicios" class="w-10/12" />
         </div>
-        <span class="text-base font-extrabold tracking-tight text-surface-900">Mantia</span>
+        <span class="text-base font-extrabold tracking-tight text-body">Mantia</span>
       </div>
+      <button
+        type="button"
+        (click)="temas.alternar()"
+        [attr.aria-label]="temas.oscuro() ? 'Activar tema claro' : 'Activar tema oscuro'"
+        class="ml-auto grid h-10 w-10 place-items-center rounded-xl text-body-soft transition-colors hover:bg-panel-hover"
+      >
+        <i class="pi theme-icon" [ngClass]="temas.oscuro() ? 'pi-sun' : 'pi-moon'"></i>
+      </button>
     </header>
 
     <main class="flex-1 overflow-y-auto">

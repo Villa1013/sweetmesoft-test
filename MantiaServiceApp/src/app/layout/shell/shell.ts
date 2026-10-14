@@ -1,8 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { ThemeService } from '../../core/services/theme.service';
 import { Footer } from '../../shared/ui';
 
 interface NavItem {
@@ -18,6 +19,7 @@ interface NavItem {
   styleUrl: './shell.scss',
 })
 export class Shell {
+  protected readonly temas = inject(ThemeService);
   protected readonly collapsed = signal(false);
   protected readonly mobileOpen = signal(false);
   protected readonly mostrarTexto = computed(() => this.mobileOpen() || !this.collapsed());

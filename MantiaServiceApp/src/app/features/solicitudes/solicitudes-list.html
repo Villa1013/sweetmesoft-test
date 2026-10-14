@@ -11,7 +11,7 @@
 
   <app-card class="fade-in-up mt-6 block">
     <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-      <span class="text-sm font-medium text-surface-600">
+      <span class="text-sm font-medium text-body-soft">
         {{ filtradas().length }} de {{ solicitudes().length }} solicitudes
       </span>
       <p-select
@@ -50,22 +50,22 @@
 
       <ng-template pTemplate="body" let-s>
         <tr class="group text-sm">
-          <td class="font-semibold text-surface-900">{{ s.numero }}</td>
+          <td class="font-semibold text-body">{{ s.numero }}</td>
           <td>
             <a
               [routerLink]="['/solicitudes', s.id]"
-              class="font-medium text-surface-800 hover:text-primary hover:underline"
+              class="font-medium text-body hover:text-primary hover:underline"
               >{{ s.cliente }}</a
             >
             @if (s.referencia) {
-              <span class="ml-2 text-xs text-surface-400">Ref. {{ s.referencia }}</span>
+              <span class="ml-2 text-xs text-body-muted">Ref. {{ s.referencia }}</span>
             }
           </td>
-          <td class="text-surface-600">{{ s.municipio || '—' }}</td>
+          <td class="text-body-soft">{{ s.municipio || '—' }}</td>
           <td>
             <app-origen-badge [origen]="s.origen" />
           </td>
-          <td class="text-surface-600">{{ s.fechaRecepcion | date: 'd MMM y' }}</td>
+          <td class="text-body-soft">{{ s.fechaRecepcion | date: 'd MMM y' }}</td>
           <td>
             <app-estado-tag [tipo]="'solicitud'" [estado]="s.estado" />
           </td>
@@ -99,7 +99,7 @@
 
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7" class="py-10 text-center text-sm text-surface-500">
+          <td colspan="7" class="py-10 text-center text-sm text-body-muted">
             No hay solicitudes que coincidan con el filtro.
           </td>
         </tr>

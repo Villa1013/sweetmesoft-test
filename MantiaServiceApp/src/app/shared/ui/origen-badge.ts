@@ -8,7 +8,7 @@ import { origenIcon, origenLabel } from '../../core/ui/labels';
   imports: [NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span class="inline-flex items-center gap-1.5 text-surface-600">
+    <span class="inline-flex items-center gap-1.5 text-body-soft">
       <i class="pi text-xs" [ngClass]="icono()"></i>
       <span class="text-sm">{{ etiqueta() }}</span>
     </span>

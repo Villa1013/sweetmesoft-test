@@ -10,6 +10,6 @@ export class SurfaceCard {
 
   protected readonly clases = computed(
     () =>
-      `rounded-2xl border border-surface-200 bg-white shadow-sm${this.padded() ? ' p-5' : ''}`,
+      `rounded-2xl border border-line bg-panel shadow-sm${this.padded() ? ' p-5' : ''}`,
   );
 }

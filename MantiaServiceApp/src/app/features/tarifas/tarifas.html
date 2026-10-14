@@ -12,7 +12,7 @@
       [class]="
         versionActiva() === null
           ? 'border-primary bg-primary text-primary-contrast'
-          : 'border-surface-200 bg-white text-surface-600 hover:border-primary hover:text-primary'
+          : 'border-line bg-panel text-body-soft hover:border-primary hover:text-primary'
       "
     >
       Todas
@@ -25,7 +25,7 @@
         [class]="
           versionActiva() === v
             ? 'border-primary bg-primary text-primary-contrast'
-            : 'border-surface-200 bg-white text-surface-600 hover:border-primary hover:text-primary'
+            : 'border-line bg-panel text-body-soft hover:border-primary hover:text-primary'
         "
       >
         Versión {{ v }}
@@ -55,21 +55,21 @@
       <ng-template pTemplate="body" let-t>
         <tr class="text-sm">
           <td class="font-mono text-sm font-semibold text-primary">{{ t.codigo }}</td>
-          <td class="text-surface-700">{{ t.concepto }}</td>
-          <td class="text-surface-500">{{ t.unidad }}</td>
+          <td class="text-body-soft">{{ t.concepto }}</td>
+          <td class="text-body-muted">{{ t.unidad }}</td>
           <td>
             <p-tag
               [value]="tipoTarifaLabel(t.tipo)"
               [severity]="t.tipo === 'Desplazamiento' ? 'info' : 'secondary'"
             />
           </td>
-          <td class="text-right font-bold text-surface-900">{{ t.precioUnitarioCOP | cop }}</td>
+          <td class="text-right font-bold text-body">{{ t.precioUnitarioCOP | cop }}</td>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" class="py-10 text-center text-sm text-surface-500">
+          <td colspan="5" class="py-10 text-center text-sm text-body-muted">
             No hay tarifas para esta versión.
           </td>
         </tr>

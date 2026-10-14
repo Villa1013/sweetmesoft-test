@@ -1,6 +1,6 @@
 @if (loading()) {
   <app-page maxWidth="6xl">
-    <p class="text-surface-500">Cargando solicitud…</p>
+    <p class="text-body-muted">Cargando solicitud…</p>
   </app-page>
 } @else if (solicitud(); as s) {
   <app-page maxWidth="6xl">
@@ -10,11 +10,11 @@
       <header class="flex flex-wrap items-start justify-between gap-4 p-6">
         <div>
           <div class="flex items-center gap-3">
-            <h1 class="text-2xl font-extrabold tracking-tight text-surface-900">{{ s.numero }}</h1>
+            <h1 class="text-2xl font-extrabold tracking-tight text-body">{{ s.numero }}</h1>
             <app-estado-tag [tipo]="'solicitud'" [estado]="s.estado" />
           </div>
-          <p class="mt-1 text-lg font-semibold text-surface-700">{{ s.cliente }}</p>
-          <p class="mt-1 flex flex-wrap items-center gap-3 text-sm text-surface-500">
+          <p class="mt-1 text-lg font-semibold text-body-soft">{{ s.cliente }}</p>
+          <p class="mt-1 flex flex-wrap items-center gap-3 text-sm text-body-muted">
             <app-origen-badge [origen]="s.origen" />
             <span>·</span>
             <span>{{ s.fechaRecepcion | date: 'd MMM y, HH:mm' }}</span>
@@ -49,7 +49,7 @@
 
     @if (s.camposFaltantes) {
       <div
-        class="fade-in-up mt-4 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-800"
+        class="fade-in-up mt-4 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-800 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-200"
       >
         <i class="pi pi-exclamation-triangle mt-0.5 text-lg"></i>
         <div>
@@ -88,7 +88,7 @@
 
       <app-card class="fade-in-up block">
         <app-card-title title="Gestión" />
-        <label class="mb-1 block text-xs font-medium uppercase tracking-wide text-surface-400">
+        <label class="mb-1 block text-xs font-medium uppercase tracking-wide text-body-muted">
           Estado
         </label>
         <p-select
@@ -98,7 +98,7 @@
           optionValue="value"
           styleClass="w-full"
         />
-        <label class="mb-1 mt-4 block text-xs font-medium uppercase tracking-wide text-surface-400">
+        <label class="mb-1 mt-4 block text-xs font-medium uppercase tracking-wide text-body-muted">
           Observaciones
         </label>
         <textarea
@@ -117,7 +117,7 @@
 
     <app-section-card title="Ítems detectados" class="fade-in-up mt-4 block">
       @if (s.items.length === 0) {
-        <p class="p-6 text-sm text-surface-500">No se detectaron ítems en la comunicación.</p>
+        <p class="p-6 text-sm text-body-muted">No se detectaron ítems en la comunicación.</p>
       } @else {
         <p-table [value]="s.items" styleClass="p-datatable-sm" responsiveLayout="scroll">
           <ng-template pTemplate="header">
@@ -131,9 +131,9 @@
           <ng-template pTemplate="body" let-item>
             <tr>
               <td class="font-mono text-sm font-semibold text-primary">{{ item.codigoTarifa }}</td>
-              <td class="text-surface-700">{{ item.concepto }}</td>
+              <td class="text-body-soft">{{ item.concepto }}</td>
               <td class="text-right font-semibold">{{ item.cantidad }}</td>
-              <td class="text-sm text-surface-500">{{ item.observacion || '—' }}</td>
+              <td class="text-sm text-body-muted">{{ item.observacion || '—' }}</td>
             </tr>
           </ng-template>
         </p-table>
@@ -142,7 +142,7 @@
 
     <app-section-card title="Comunicación original" class="fade-in-up mt-4 block">
       <pre
-        class="max-h-96 overflow-auto whitespace-pre-wrap px-5 py-4 text-sm leading-relaxed text-surface-600"
+        class="max-h-96 overflow-auto whitespace-pre-wrap px-5 py-4 text-sm leading-relaxed text-body-soft"
         >{{ s.textoOriginal }}</pre
       >
     </app-section-card>

@@ -7,11 +7,11 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     <header class="fade-in-up flex flex-wrap items-end justify-between gap-4">
       <div>
         @if (eyebrow()) {
-          <p class="text-sm font-medium text-surface-500">{{ eyebrow() }}</p>
+          <p class="text-sm font-medium text-body-muted">{{ eyebrow() }}</p>
         }
-        <h1 class="text-2xl font-extrabold tracking-tight text-surface-900">{{ title() }}</h1>
+        <h1 class="text-2xl font-extrabold tracking-tight text-body">{{ title() }}</h1>
         @if (subtitle()) {
-          <p class="mt-1 text-sm text-surface-500">{{ subtitle() }}</p>
+          <p class="mt-1 text-sm text-body-muted">{{ subtitle() }}</p>
         }
       </div>
       <ng-content />

@@ -5,16 +5,40 @@ html {
   color-scheme: light;
 }
 
+html.p-dark {
+  color-scheme: dark;
+}
+
 :root {
   --p-font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     sans-serif;
+
+  --app-ground: var(--p-surface-50);
+  --app-panel: var(--p-surface-0);
+  --app-panel-muted: var(--p-surface-100);
+  --app-panel-hover: var(--p-surface-100);
+  --app-line: var(--p-surface-200);
+  --app-body: var(--p-surface-900);
+  --app-body-soft: var(--p-surface-700);
+  --app-body-muted: var(--p-surface-500);
+}
+
+html.p-dark {
+  --app-ground: var(--p-surface-950);
+  --app-panel: var(--p-surface-900);
+  --app-panel-muted: var(--p-surface-800);
+  --app-panel-hover: var(--p-surface-800);
+  --app-line: var(--p-surface-800);
+  --app-body: var(--p-surface-50);
+  --app-body-soft: var(--p-surface-300);
+  --app-body-muted: var(--p-surface-400);
 }
 
 body {
   margin: 0;
   font-family: var(--p-font-family);
-  background: var(--p-surface-50);
-  color: var(--p-surface-900);
+  background: var(--app-ground);
+  color: var(--app-body);
 }
 
 .p-component {
@@ -41,6 +65,21 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--p-surface-300);
+  background: var(--app-line);
   border-radius: 999px;
+}
+
+.theme-icon {
+  animation: themeIconIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes themeIconIn {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
 }

@@ -56,21 +56,21 @@
           }
         </div>
       } @else if (recientes().length === 0) {
-        <p class="p-8 text-center text-sm text-surface-500">No hay solicitudes registradas.</p>
+          <p class="p-8 text-center text-sm text-body-muted">No hay solicitudes registradas.</p>
       } @else {
-        <ul class="divide-y divide-surface-100">
+        <ul class="divide-y divide-line">
           @for (s of recientes(); track s.id) {
             <li>
               <a
                 [routerLink]="['/solicitudes', s.id]"
-                class="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-surface-50"
+                class="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-panel-hover"
               >
-                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-surface-100 text-surface-600">
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-panel-muted text-body-soft">
                   <i class="pi" [ngClass]="origenIcon(s.origen)"></i>
                 </span>
                 <div class="min-w-0 flex-1">
-                  <p class="truncate text-sm font-semibold text-surface-900">{{ s.cliente }}</p>
-                  <p class="truncate text-xs text-surface-500">
+                  <p class="truncate text-sm font-semibold text-body">{{ s.cliente }}</p>
+                  <p class="truncate text-xs text-body-muted">
                     {{ s.numero }} · {{ origenLabel(s.origen) }}
                     @if (s.municipio) {
                       · {{ s.municipio }}
@@ -97,21 +97,21 @@
           }
         </div>
       } @else if (cotizaciones().length === 0) {
-        <p class="p-8 text-center text-sm text-surface-500">Aún no hay cotizaciones.</p>
+          <p class="p-8 text-center text-sm text-body-muted">Aún no hay cotizaciones.</p>
       } @else {
-        <ul class="divide-y divide-surface-100">
+        <ul class="divide-y divide-line">
           @for (c of cotizaciones().slice(0, 4); track c.id) {
             <li>
               <a
                 [routerLink]="['/cotizaciones', c.id]"
-                class="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-surface-50"
+                class="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-panel-hover"
               >
                 <div class="min-w-0 flex-1">
-                  <p class="truncate text-sm font-semibold text-surface-900">{{ c.numero }}</p>
-                  <p class="truncate text-xs text-surface-500">{{ c.cliente }}</p>
+                  <p class="truncate text-sm font-semibold text-body">{{ c.numero }}</p>
+                  <p class="truncate text-xs text-body-muted">{{ c.cliente }}</p>
                 </div>
                 <div class="text-right">
-                  <p class="text-sm font-bold text-surface-900">{{ c.total | cop }}</p>
+                  <p class="text-sm font-bold text-body">{{ c.total | cop }}</p>
                   <app-estado-tag [tipo]="'cotizacion'" [estado]="c.estado" />
                 </div>
               </a>

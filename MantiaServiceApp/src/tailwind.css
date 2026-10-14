@@ -6,3 +6,14 @@
   --font-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     sans-serif;
 }
+
+@theme inline {
+  --color-ground: var(--app-ground);
+  --color-panel: var(--app-panel);
+  --color-panel-muted: var(--app-panel-muted);
+  --color-panel-hover: var(--app-panel-hover);
+  --color-line: var(--app-line);
+  --color-body: var(--app-body);
+  --color-body-soft: var(--app-body-soft);
+  --color-body-muted: var(--app-body-muted);
+}

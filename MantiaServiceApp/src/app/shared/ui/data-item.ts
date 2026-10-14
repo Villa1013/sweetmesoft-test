@@ -5,8 +5,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <dt class="text-xs font-medium uppercase tracking-wide text-surface-400">{{ label() }}</dt>
-      <dd class="mt-1 text-sm font-medium text-surface-800">{{ value() || '—' }}</dd>
+      <dt class="text-xs font-medium uppercase tracking-wide text-body-muted">{{ label() }}</dt>
+      <dd class="mt-1 text-sm font-medium text-body">{{ value() || '—' }}</dd>
     </div>
   `,
 })
