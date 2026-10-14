@@ -1,5 +1,5 @@
 <div align="center">
-![SweetMeSoft](/docs/logo.png)
+  <img src="./docs/logo.png" alt="SweetMeSoft" width="200">
 </div>
 
 # Mantia Servicios — Prototipo de cotización asistida
