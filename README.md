@@ -38,39 +38,19 @@ tiempo de Laura (coordinadora comercial) y los errores de alcance y valores.
 
 ## Índice
 
-1. [Demo en vivo](#demo-en-vivo)
-2. [Arquitectura](#arquitectura)
-3. [Requisitos](#requisitos)
-4. [Instalación y ejecución](#instalación-y-ejecución)
-5. [Variables de entorno](#variables-de-entorno)
-6. [Uso del prototipo](#uso-del-prototipo)
-7. [API (endpoints)](#api-endpoints)
-8. [Reglas de negocio implementadas](#reglas-de-negocio-implementadas)
-9. [Datos de ejemplo (seed)](#datos-de-ejemplo-seed)
-10. [Verificación](#verificación)
-11. [Alcance funcional](#alcance-funcional)
-12. [Pendientes y fuera de alcance](#pendientes-y-fuera-de-alcance)
-13. [Estructura del repositorio](#estructura-del-repositorio)
-14. [Herramientas usadas](#herramientas-usadas)
-
----
-
-## Demo en vivo
-
-🔗 **<https://sweetmesoft-test.vercel.app/>**
-
-Recorrido sugerido:
-
-1. **Panel** con indicadores (listas para cotizar, requieren acción, valor cotizado, recientes).
-2. **Nueva solicitud** → pega el texto de un correo (o carga un `.txt`/`.pdf`) y pulsa **Analizar**.
-3. Revisa los datos extraídos y **Registrar** la solicitud.
-4. En el detalle, **Generar cotización** (líneas, subtotal, IVA 19% y total).
-5. En **Cotizaciones**, revisa el detalle, **imprime** o marca como **Enviada**.
-
-[![Recorrido del prototipo](./docs/demo.gif)](https://sweetmesoft-test.vercel.app/)
-
-> Es un entorno de prueba con datos de ejemplo; puedes crear y editar solicitudes libremente.
-> El backend corre en un tier gratuito y puede tardar en la primera petición (ver aviso arriba).
+1. [Arquitectura](#arquitectura)
+2. [Requisitos](#requisitos)
+3. [Instalación y ejecución](#instalación-y-ejecución)
+4. [Variables de entorno](#variables-de-entorno)
+5. [Uso del prototipo](#uso-del-prototipo)
+6. [API (endpoints)](#api-endpoints)
+7. [Reglas de negocio implementadas](#reglas-de-negocio-implementadas)
+8. [Datos de ejemplo (seed)](#datos-de-ejemplo-seed)
+9. [Verificación](#verificación)
+10. [Alcance funcional](#alcance-funcional)
+11. [Pendientes y fuera de alcance](#pendientes-y-fuera-de-alcance)
+12. [Estructura del repositorio](#estructura-del-repositorio)
+13. [Herramientas usadas](#herramientas-usadas)
 
 ---
 
