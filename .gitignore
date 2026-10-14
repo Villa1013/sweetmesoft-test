@@ -4,13 +4,13 @@ Thumbs.db
 .idea/
 
 # --- Backend (.NET) ---
-MantiaServiceApi/.env
-MantiaServiceApi/mantia.db
-MantiaServiceApi/mantia.db-shm
-MantiaServiceApi/mantia.db-wal
-MantiaServiceApi/bin/
-MantiaServiceApi/obj/
-MantiaServiceApi/.agents/
+MantiaServiceAPI/.env
+MantiaServiceAPI/mantia.db
+MantiaServiceAPI/mantia.db-shm
+MantiaServiceAPI/mantia.db-wal
+MantiaServiceAPI/bin/
+MantiaServiceAPI/obj/
+MantiaServiceAPI/.agents/
 
 # --- Frontend (Angular) ---
 MantiaServiceApp/.env

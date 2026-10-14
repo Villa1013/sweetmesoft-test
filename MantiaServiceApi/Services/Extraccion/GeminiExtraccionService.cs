@@ -25,7 +25,7 @@ public class GeminiExtraccionService : IExtraccionTexto
     public bool TieneApiKey => !string.IsNullOrWhiteSpace(ApiKey);
 
     private string? ApiKey => _configuration["Gemini:ApiKey"];
-    private string Modelo => _configuration["Gemini:Model"] ?? "gemini-3.8-flash";
+    private string Modelo => _configuration["Gemini:Model"] ?? "gemini-2.0-flash";
 
     public async Task<ResultadoExtraccion> ExtraerAsync(string texto, CancellationToken cancellationToken = default)
     {

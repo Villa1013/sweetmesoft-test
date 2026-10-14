@@ -1,5 +1,5 @@
 <div align="center">
-![SweetMeSoft](/MantiaServiceApp/public/logo.png)
+![SweetMeSoft](/docs/logo.png)
 </div>
 
 # Mantia Servicios — Prototipo de cotización asistida
@@ -42,7 +42,7 @@ tiempo de Laura (coordinadora comercial) y los errores de alcance y valores.
 
 ```
 ┌──────────────────────────────┐        HTTP/JSON        ┌──────────────────────────────┐
-│  MantiaServiceApp (Angular)  │  /api/**  (proxy dev)   │  MantiaServiceApi (.NET 10)  │
+│  MantiaServiceApp (Angular)  │  /api/**  (proxy dev)   │  MantiaServiceAPI (.NET 10)  │
 │                              │ ──────────────────────► │                              │
 │  Panel / Solicitudes /       │                          │  Controllers                 │
 │  Cotizaciones / Tarifas      │ ◄────────────────────── │   ├─ SolicitudesController   │
@@ -72,7 +72,7 @@ tiempo de Laura (coordinadora comercial) y los errores de alcance y valores.
 
 | Herramienta | Versión usada | Notas |
 |-------------|---------------|-------|
-| .NET SDK | **10.0** | Compila y ejecuta `MantiaServiceApi` |
+| .NET SDK | **10.0** | Compila y ejecuta `MantiaServiceAPI` |
 | Node.js | **20 LTS o superior** | Usado: 22.x |
 | npm | 10+ | Gestor del frontend |
 
@@ -91,7 +91,7 @@ Se levantan dos procesos: la **API** y la **app Angular**. En dos terminales.
 ### 1) Terminal A — Backend (API)
 
 ```bash
-cd MantiaServiceApi
+cd MantiaServiceAPI
 dotnet restore          # restaura paquetes NuGet
 dotnet run              # levanta la API en http://localhost:5256
 ```
@@ -122,24 +122,24 @@ Abrir <http://localhost:4200>. El proxy envía `/api/**` a la API en `localhost:
 
 ```bash
 # con la API detenida
-rm -f MantiaServiceApi/mantia.db MantiaServiceApi/mantia.db-shm MantiaServiceApi/mantia.db-wal
-cd MantiaServiceApi && dotnet run
+rm -f MantiaServiceAPI/mantia.db MantiaServiceAPI/mantia.db-shm MantiaServiceAPI/mantia.db-wal
+cd MantiaServiceAPI && dotnet run
 ```
 
 ## Variables de entorno
 
-La API lee un archivo **`.env` opcional** en `MantiaServiceApi/` (ver
-`MantiaServiceApi/.env.example`). Es útil solo si quieres activar Gemini.
+La API lee un archivo **`.env` opcional** en `MantiaServiceAPI/` (ver
+`MantiaServiceAPI/.env.example`). Es útil solo si quieres activar Gemini.
 
 ```bash
-cd MantiaServiceApi
+cd MantiaServiceAPI
 cp .env.example .env
 ```
 
 | Variable | Descripción | Obligatoria |
 |----------|-------------|-------------|
 | `GEMINI__APIKEY` | API key de Google AI Studio. Si está vacía, se usa el motor de reglas local. | No |
-| `GEMINI__MODEL` | Modelo de Gemini (por defecto `gemini-3.8-flash`). | No |
+| `GEMINI__MODEL` | Modelo de Gemini (por defecto `gemini-2.0-flash`). | No |
 | `GEMINI__TIMEOUTSECONDS` | Segundos antes de caer al motor de reglas (por defecto 8). | No |
 
 - **No se sube `.env` al repositorio** (está ignorado). No incluyas claves reales en el repo.
@@ -245,7 +245,7 @@ Comandos útiles de verificación:
 
 ```bash
 # Build del backend
-dotnet build MantiaServiceApi/MantiaServiceAPI.csproj
+dotnet build MantiaServiceAPI/MantiaServiceAPI.csproj
 
 # Build del frontend
 cd MantiaServiceApp && npx ng build
@@ -290,7 +290,7 @@ cd MantiaServiceApp && npx ng build
 │   ├── Solucion_Mantia.md
 │   ├── Solucion_Mantia.pdf
 │   └── Historial_IA.md
-├── MantiaServiceApi/             # Backend .NET 10
+├── MantiaServiceAPI/             # Backend .NET 10
 │   ├── Controllers/              # Endpoints REST
 │   ├── Services/                 # Extracción y cálculo de cotizaciones
 │   │   ├── Extraccion/           # Gemini + reglas locales
