@@ -14,7 +14,11 @@
   </a>
   <br>
   <sub>Panel → Nueva solicitud (pegar correo) → Analizar → Registrar → Generar cotización → Cotización con total</sub>
+
+  > ⏳ **Demo en vivo:** El backend gratuito (Render)
+  > puede tardar ~30–50 s en la primera petición mientras "despierta".
 </div>
+<br>
 
 Prototipo funcional para la **prueba técnica de SweetMeSoft**. Automatiza la lectura de
 solicitudes de mantenimiento (correos, mensajería y documentos), su interpretación, el
@@ -29,9 +33,6 @@ tiempo de Laura (coordinadora comercial) y los errores de alcance y valores.
 > Documento de explicación y defensa de la solución: [`docs/Solucion_Mantia.md`](docs/Solucion_Mantia.md)
 > (y su versión PDF [`docs/Solucion_Mantia.pdf`](docs/Solucion_Mantia.pdf)).
 > Historial de interacción con la IA: [`docs/Historial_IA.md`](docs/Historial_IA.md).
-
-> ⏳ **Demo en vivo:** <https://sweetmesoft-test.vercel.app/> — el backend gratuito (Render)
-> puede tardar ~30–50 s en la primera petición mientras "despierta".
 
 ---
 
