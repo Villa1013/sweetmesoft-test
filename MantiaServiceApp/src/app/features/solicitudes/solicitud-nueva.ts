@@ -128,7 +128,7 @@ export class SolicitudNueva {
   }
 
   analizar(): void {
-    if (this.extrayendo()) {
+    if (this.extrayendo() || this.analizando()) {
       return;
     }
     if (!this.texto.trim()) {

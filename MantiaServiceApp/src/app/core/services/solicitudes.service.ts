@@ -9,11 +9,12 @@ import {
   SolicitudDetalle,
   SolicitudListado,
 } from '../models/solicitud.models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SolicitudesService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = '/api/solicitudes';
+  private readonly baseUrl = `${environment.apiUrl}/solicitudes`;
 
   listar(estado?: EstadoSolicitud): Observable<SolicitudListado[]> {
     let params = new HttpParams();

@@ -12,12 +12,17 @@
       <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2">
           <span class="text-sm font-medium text-body-soft">Canal:</span>
-          <p-select [options]="origenes" [(ngModel)]="origen" styleClass="w-full sm:w-44" />
+          <p-select
+            [options]="origenes"
+            [(ngModel)]="origen"
+            [disabled]="analizando()"
+            styleClass="w-full sm:w-44"
+          />
         </div>
         <label
           class="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-primary hover:underline"
-          [class.pointer-events-none]="extrayendo()"
-          [class.opacity-60]="extrayendo()"
+          [class.pointer-events-none]="extrayendo() || analizando()"
+          [class.opacity-60]="extrayendo() || analizando()"
         >
           @if (extrayendo()) {
             <i class="pi pi-spin pi-spinner"></i> Leyendo PDF…
@@ -33,6 +38,7 @@
         [(ngModel)]="texto"
         rows="16"
         class="w-full font-mono text-sm"
+        [disabled]="analizando()"
         placeholder="Pegue aquí el correo, mensaje o documento del cliente, o cargue un PDF o archivo .txt…"
       ></textarea>
 
@@ -40,11 +46,13 @@
         pButton
         class="mt-4 w-full"
         [loading]="analizando()"
-        [disabled]="extrayendo()"
+        [disabled]="extrayendo() || analizando()"
         (click)="analizar()"
       >
-        <i class="pi pi-sparkles"></i>
-        <span class="ml-2">Analizar con IA</span>
+        @if (!analizando()) {
+          <i class="pi pi-sparkles"></i>
+        }
+        <span class="ml-2">{{ analizando() ? 'Analizando…' : 'Analizar con IA' }}</span>
       </button>
     </app-card>
 

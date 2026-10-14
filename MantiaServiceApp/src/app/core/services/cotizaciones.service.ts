@@ -2,11 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CotizacionDetalle, CotizacionListado } from '../models/cotizacion.models';
+import { environment } from '../../../environments/environment';  // ← agrega esto
 
 @Injectable({ providedIn: 'root' })
 export class CotizacionesService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = '/api/cotizaciones';
+  private readonly baseUrl = `${environment.apiUrl}/cotizaciones`;
 
   listar(solicitudId?: number): Observable<CotizacionListado[]> {
     let params = new HttpParams();
