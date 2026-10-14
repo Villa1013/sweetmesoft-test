@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@custom-variant dark (&:where(.p-dark, .p-dark *));
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+}

@@ -1,0 +1,111 @@
+<app-page>
+  <app-page-header
+    title="Solicitudes"
+    subtitle="Comunicaciones recibidas por correo, mensajería y documentos."
+  >
+    <a pButton routerLink="/solicitudes/nueva" class="w-full sm:w-auto">
+      <i class="pi pi-plus"></i>
+      <span class="ml-2">Nueva solicitud</span>
+    </a>
+  </app-page-header>
+
+  <app-card class="fade-in-up mt-6 block">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <span class="text-sm font-medium text-surface-600">
+        {{ filtradas().length }} de {{ solicitudes().length }} solicitudes
+      </span>
+      <p-select
+        [options]="opcionesEstado"
+        [ngModel]="filtroEstado()"
+        (ngModelChange)="onFiltroChange($event)"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Filtrar por estado"
+        styleClass="w-full sm:w-64"
+      />
+    </div>
+
+    <p-table
+      [value]="filtradas()"
+      [loading]="loading()"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]"
+      [globalFilterFields]="['numero', 'cliente', 'municipio', 'referencia']"
+      styleClass="p-datatable-sm"
+      responsiveLayout="scroll"
+      dataKey="id"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="numero" style="width: 9rem">Número <p-sortIcon field="numero" /></th>
+          <th pSortableColumn="cliente">Cliente <p-sortIcon field="cliente" /></th>
+          <th pSortableColumn="municipio" style="width: 9rem">Municipio</th>
+          <th style="width: 8rem">Canal</th>
+          <th pSortableColumn="fechaRecepcion" style="width: 9rem">Recepción</th>
+          <th style="width: 13rem">Estado</th>
+          <th style="width: 9rem" class="text-right">Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-s>
+        <tr class="group text-sm">
+          <td class="font-semibold text-surface-900">{{ s.numero }}</td>
+          <td>
+            <a
+              [routerLink]="['/solicitudes', s.id]"
+              class="font-medium text-surface-800 hover:text-primary hover:underline"
+              >{{ s.cliente }}</a
+            >
+            @if (s.referencia) {
+              <span class="ml-2 text-xs text-surface-400">Ref. {{ s.referencia }}</span>
+            }
+          </td>
+          <td class="text-surface-600">{{ s.municipio || '—' }}</td>
+          <td>
+            <app-origen-badge [origen]="s.origen" />
+          </td>
+          <td class="text-surface-600">{{ s.fechaRecepcion | date: 'd MMM y' }}</td>
+          <td>
+            <app-estado-tag [tipo]="'solicitud'" [estado]="s.estado" />
+          </td>
+          <td class="text-right">
+            <div class="flex justify-end gap-1">
+              <a
+                pButton
+                severity="secondary"
+                text
+                [routerLink]="['/solicitudes', s.id]"
+                pTooltip="Ver detalle"
+                tooltipPosition="top"
+              >
+                <i class="pi pi-search"></i>
+              </a>
+              <button
+                pButton
+                text
+                [loading]="generando() === s.id"
+                [disabled]="s.estado !== 'ListaParaCotizar'"
+                (click)="generarCotizacion(s)"
+                pTooltip="Generar cotización"
+                tooltipPosition="top"
+              >
+                <i class="pi pi-file-edit"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" class="py-10 text-center text-sm text-surface-500">
+            No hay solicitudes que coincidan con el filtro.
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </app-card>
+</app-page>
+
+<p-toast position="bottom-right" />

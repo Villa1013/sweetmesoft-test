@@ -1,0 +1,92 @@
+<div class="flex h-screen w-full overflow-hidden bg-surface-50">
+  @if (mobileOpen()) {
+    <div
+      class="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm lg:hidden"
+      (click)="cerrarMobile()"
+      aria-hidden="true"
+    ></div>
+  }
+
+  <aside
+    class="fixed inset-y-0 left-0 z-40 flex w-64 shrink-0 overflow-y-auto flex-col bg-surface-900 text-surface-0 transition-all duration-300 lg:static lg:translate-x-0"
+    [class.-translate-x-full]="!mobileOpen()"
+    [class.lg:w-20]="collapsed()"
+  >
+    <div class="flex h-16 items-center gap-3 px-5">
+      <div
+        class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-contrast shadow-lg"
+      >
+        <i class="pi pi-wrench text-lg"></i>
+      </div>
+      @if (mostrarTexto()) {
+        <div class="fade-in-up overflow-hidden">
+          <p class="text-base font-extrabold leading-none tracking-tight">Mantia</p>
+          <p class="text-[11px] font-medium text-surface-400">Servicios S.A.S.</p>
+        </div>
+      }
+    </div>
+
+    <nav class="mt-4 flex flex-1 flex-col gap-1 px-3">
+      @for (item of nav; track item.route) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="bg-primary text-primary-contrast shadow-md"
+          [routerLinkActiveOptions]="{ exact: item.route === '/panel' }"
+          [pTooltip]="!mostrarTexto() ? item.label : ''"
+          tooltipPosition="right"
+          (click)="cerrarMobile()"
+          class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-surface-300 transition-colors hover:bg-surface-800 hover:text-surface-0"
+        >
+          <i class="pi" [ngClass]="item.icon" style="font-size: 1rem"></i>
+          @if (mostrarTexto()) {
+            <span>{{ item.label }}</span>
+          }
+        </a>
+      }
+    </nav>
+
+    @if (mostrarTexto()) {
+      <div class="m-3 rounded-2xl bg-surface-800 p-4 text-xs text-surface-300">
+        <p class="font-semibold text-surface-0">Prototipo</p>
+        <p class="mt-1 leading-relaxed text-surface-400">
+          Las cotizaciones se generan en borrador para revisión de Laura.
+        </p>
+      </div>
+    }
+
+    <button
+      type="button"
+      (click)="toggle()"
+      class="m-3 hidden items-center justify-center gap-2 rounded-xl bg-surface-800 py-2 text-surface-300 transition-colors hover:text-surface-0 lg:flex"
+    >
+      <i class="pi" [ngClass]="collapsed() ? 'pi-angle-double-right' : 'pi-angle-double-left'"></i>
+    </button>
+  </aside>
+
+  <div class="flex min-w-0 flex-1 flex-col">
+    <header
+      class="sticky top-0 z-20 flex h-16 shrink-0 items-center gap-3 border-b border-surface-200 bg-white/90 px-4 backdrop-blur lg:hidden"
+    >
+      <button
+        type="button"
+        (click)="toggleMobile()"
+        class="grid h-10 w-10 place-items-center rounded-xl text-surface-700 transition-colors hover:bg-surface-100"
+        aria-label="Abrir menú"
+      >
+        <i class="pi pi-bars text-lg"></i>
+      </button>
+      <div class="flex items-center gap-2">
+        <div class="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-contrast">
+          <i class="pi pi-wrench text-sm"></i>
+        </div>
+        <span class="text-base font-extrabold tracking-tight text-surface-900">Mantia</span>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto">
+      <router-outlet />
+    </main>
+
+    <app-footer />
+  </div>
+</div>

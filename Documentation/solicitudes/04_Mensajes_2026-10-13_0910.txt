@@ -1,0 +1,9 @@
+Conversación recibida por mensajería
+Contacto: Ana Beltrán - Colegio Arboleda
+Correo de contacto: administracion@arboleda.example
+Fecha: 13 de octubre de 2026 (Bogotá)
+
+[09:10] Ana: Hola, Laura. Ayer te envié un correo sobre el mantenimiento de los aires de la sede principal.
+[09:11] Ana: Revisamos y en realidad son 4 equipos, no 3. Todos son split de 18.000 BTU.
+[09:12] Ana: Se mantiene la misma dirección en Bogotá y la visita del jueves 15 entre las 9 y las 12. Es la misma solicitud, solo cambia la cantidad.
+[09:13] Ana: Por favor toma esa cantidad para la cotización.

@@ -1,0 +1,113 @@
+<app-page>
+  <app-page-header
+    title="Cotizaciones"
+    subtitle="Cotizaciones preparadas e historial conservado en su fecha original."
+  >
+    <div class="w-full rounded-xl border border-surface-200 bg-white px-4 py-2 text-right shadow-sm sm:w-auto">
+      <p class="text-xs uppercase tracking-wide text-surface-400">Valor visible</p>
+      <p class="text-lg font-extrabold text-surface-900">{{ totalVisible() | cop }}</p>
+    </div>
+  </app-page-header>
+
+  <app-card class="fade-in-up mt-6 block">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <span class="text-sm font-medium text-surface-600">
+        {{ filtradas().length }} de {{ cotizaciones().length }} cotizaciones
+      </span>
+      <p-select
+        [options]="opcionesEstado"
+        [ngModel]="filtroEstado()"
+        (ngModelChange)="onFiltroChange($event)"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Filtrar por estado"
+        styleClass="w-full sm:w-56"
+      />
+    </div>
+
+    <p-table
+      [value]="filtradas()"
+      [loading]="loading()"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]"
+      [globalFilterFields]="['numero', 'cliente', 'municipio']"
+      styleClass="p-datatable-sm"
+      responsiveLayout="scroll"
+      dataKey="id"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="numero" style="width: 8rem">Número <p-sortIcon field="numero" /></th>
+          <th pSortableColumn="cliente">Cliente <p-sortIcon field="cliente" /></th>
+          <th style="width: 8rem">Versión</th>
+          <th pSortableColumn="fechaEmision" style="width: 9rem">Emisión</th>
+          <th style="width: 10rem">Estado</th>
+          <th pSortableColumn="total" style="width: 9rem" class="text-right">
+            Total <p-sortIcon field="total" />
+          </th>
+          <th style="width: 8rem" class="text-right">Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-c>
+        <tr class="text-sm">
+          <td>
+            <a
+              [routerLink]="['/cotizaciones', c.id]"
+              class="font-semibold text-surface-900 hover:text-primary hover:underline"
+              >{{ c.numero }}</a
+            >
+          </td>
+          <td class="text-surface-700">
+            {{ c.cliente }}
+            @if (c.esHistorica) {
+              <p-tag value="Histórica" severity="contrast" styleClass="ml-2" />
+            }
+          </td>
+          <td class="font-mono text-sm text-surface-500">{{ c.versionTarifa }}</td>
+          <td class="text-surface-600">{{ c.fechaEmision | date: 'd MMM y' }}</td>
+          <td>
+            <app-estado-tag [tipo]="'cotizacion'" [estado]="c.estado" />
+          </td>
+          <td class="text-right font-bold text-surface-900">{{ c.total | cop }}</td>
+          <td class="text-right">
+            <div class="flex justify-end gap-1">
+              <a
+                pButton
+                severity="secondary"
+                text
+                [routerLink]="['/cotizaciones', c.id]"
+                pTooltip="Ver detalle"
+                tooltipPosition="top"
+              >
+                <i class="pi pi-search"></i>
+              </a>
+              <button
+                pButton
+                text
+                [loading]="enviando() === c.id"
+                [disabled]="c.estado !== 'Borrador'"
+                (click)="marcarEnviada(c)"
+                pTooltip="Marcar como enviada"
+                tooltipPosition="top"
+              >
+                <i class="pi pi-send"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" class="py-10 text-center text-sm text-surface-500">
+            No hay cotizaciones que coincidan con el filtro.
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </app-card>
+</app-page>
+
+<p-toast position="bottom-right" />

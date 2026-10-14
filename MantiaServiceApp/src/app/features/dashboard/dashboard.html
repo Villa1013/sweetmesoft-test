@@ -1,0 +1,124 @@
+<app-page>
+  <app-page-header
+    eyebrow="Coordinación comercial"
+    title="Hola Laura 👋"
+    subtitle="Este es el resumen de las solicitudes recibidas y las cotizaciones preparadas."
+  >
+    <a pButton routerLink="/solicitudes/nueva" class="fade-in-up w-full sm:w-auto">
+      <i class="pi pi-sparkles"></i>
+      <span class="ml-2">Analizar solicitud</span>
+    </a>
+  </app-page-header>
+
+  <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <app-stat-card
+      icono="pi-inbox"
+      etiqueta="Solicitudes recibidas"
+      [valor]="solicitudes().length"
+      [cargando]="loading()"
+      [destacada]="true"
+    />
+    <app-stat-card
+      icono="pi-check-circle"
+      etiqueta="Listas para cotizar"
+      [valor]="listas()"
+      [cargando]="loading()"
+      [tema]="'verde'"
+    />
+    <app-stat-card
+      icono="pi-exclamation-triangle"
+      etiqueta="Requieren acción"
+      [valor]="requierenAccion()"
+      [cargando]="loading()"
+      [tema]="'ambar'"
+    />
+    <app-stat-card
+      icono="pi-wallet"
+      etiqueta="Valor cotizado ({{ cotizaciones().length }} cotizaciones)"
+      [valor]="valorTotal()"
+      [cargando]="loading()"
+      [invertida]="true"
+      [tema]="'claro'"
+      [formato]="'cop'"
+    />
+  </div>
+
+  <div class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5">
+    <app-section-card title="Solicitudes recientes" class="xl:col-span-3">
+      <a acciones routerLink="/solicitudes" class="text-sm font-semibold text-primary hover:underline">
+        Ver todas
+      </a>
+
+      @if (loading()) {
+        <div class="space-y-3 p-5">
+          @for (i of [1, 2, 3, 4, 5]; track i) {
+            <p-skeleton height="2.5rem" />
+          }
+        </div>
+      } @else if (recientes().length === 0) {
+        <p class="p-8 text-center text-sm text-surface-500">No hay solicitudes registradas.</p>
+      } @else {
+        <ul class="divide-y divide-surface-100">
+          @for (s of recientes(); track s.id) {
+            <li>
+              <a
+                [routerLink]="['/solicitudes', s.id]"
+                class="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-surface-50"
+              >
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-surface-100 text-surface-600">
+                  <i class="pi" [ngClass]="origenIcon(s.origen)"></i>
+                </span>
+                <div class="min-w-0 flex-1">
+                  <p class="truncate text-sm font-semibold text-surface-900">{{ s.cliente }}</p>
+                  <p class="truncate text-xs text-surface-500">
+                    {{ s.numero }} · {{ origenLabel(s.origen) }}
+                    @if (s.municipio) {
+                      · {{ s.municipio }}
+                    }
+                  </p>
+                </div>
+                <app-estado-tag [tipo]="'solicitud'" [estado]="s.estado" />
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </app-section-card>
+
+    <app-section-card title="Últimas cotizaciones" class="xl:col-span-2">
+      <a acciones routerLink="/cotizaciones" class="text-sm font-semibold text-primary hover:underline">
+        Ver todas
+      </a>
+
+      @if (loading()) {
+        <div class="space-y-3 p-5">
+          @for (i of [1, 2, 3, 4]; track i) {
+            <p-skeleton height="2.5rem" />
+          }
+        </div>
+      } @else if (cotizaciones().length === 0) {
+        <p class="p-8 text-center text-sm text-surface-500">Aún no hay cotizaciones.</p>
+      } @else {
+        <ul class="divide-y divide-surface-100">
+          @for (c of cotizaciones().slice(0, 4); track c.id) {
+            <li>
+              <a
+                [routerLink]="['/cotizaciones', c.id]"
+                class="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-surface-50"
+              >
+                <div class="min-w-0 flex-1">
+                  <p class="truncate text-sm font-semibold text-surface-900">{{ c.numero }}</p>
+                  <p class="truncate text-xs text-surface-500">{{ c.cliente }}</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm font-bold text-surface-900">{{ c.total | cop }}</p>
+                  <app-estado-tag [tipo]="'cotizacion'" [estado]="c.estado" />
+                </div>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </app-section-card>
+  </div>
+</app-page>

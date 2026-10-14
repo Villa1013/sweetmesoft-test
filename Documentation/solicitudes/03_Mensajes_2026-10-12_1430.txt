@@ -1,0 +1,8 @@
+Conversación recibida por mensajería
+Contacto: Paula Méndez - Oficina Horizonte
+Fecha: 12 de octubre de 2026 (Bogotá)
+
+[14:30] Paula: Hola, ¿ustedes arreglan aires acondicionados?
+[14:31] Paula: El aire de nuestra oficina dejó de enfriar y queremos que lo arreglen cuanto antes.
+[14:32] Paula: ¿Cuánto cuesta que quede funcionando? Necesito pasar un valor al jefe hoy.
+[14:34] Paula: No tengo aquí la ficha del equipo. Escríbanme qué necesitan para mandarles los datos.
