@@ -2,13 +2,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copia el csproj y restaura
-COPY ["MantiaServiceApi.csproj", "./"]
-RUN dotnet restore "MantiaServiceApi.csproj"
+# Copia el csproj y restaura (nombre correcto)
+COPY ["MantiaServiceAPI.csproj", "./"]
+RUN dotnet restore "MantiaServiceAPI.csproj"
 
 # Copia todo el código y publica
 COPY . .
-RUN dotnet publish "MantiaServiceApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MantiaServiceAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Etapa final (runtime)
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
@@ -19,4 +19,4 @@ COPY --from=build /app/publish .
 ENV ASPNETCORE_URLS=http://+:${PORT:-8080}
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "MantiaServiceApi.dll"]
+ENTRYPOINT ["dotnet", "MantiaServiceAPI.dll"]
